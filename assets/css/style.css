@@ -31,3 +31,7 @@
     border-right: 1px solid black;
 }
 
+.weatherPictures{
+    height:50px;
+    width:50px;
+}
