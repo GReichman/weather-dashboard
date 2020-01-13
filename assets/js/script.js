@@ -14,7 +14,10 @@ var testForecast=createForecastElement("01/12/2020",68.7,60,"sunny");
 
 $("#forecast2").html(testForecast);
 
-
+addCityButton("Atlanta");
+addCityButton("New York");
+addCityButton("Boston");
+addCityButton("London");
 
 function createForecastElement(date, temp, humidity,weather){   
     let mediaElement = $("<div>").addClass("media");
@@ -43,5 +46,18 @@ function createForecastElement(date, temp, humidity,weather){
 }//createForecastElement
 
 function createCityButton(name){
+    let newButtonDiv=$("<div>").addClass("col-12 cityCols");
+    let newButton = $("<btn>").addClass("btn btn-outline-secondary cityButton");
+    newButton.html(name);
+    newButton.attr("data-city",name);
+    newButtonDiv.append(newButton);
+
+    return newButtonDiv;    
+}
+
+function addCityButton(name){
+var button = createCityButton(name);
+
+    $("#cityButtonDiv").prepend(button);
 
 }

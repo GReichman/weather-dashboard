@@ -28,6 +28,7 @@ body{
 
 #cityHeader{
     color:white;
+    height:100%;
     text-align: center;
     background-color: black;
     width:100%;
@@ -51,6 +52,7 @@ body{
 }
 
 #citySearchGroup{
+    margin-top: 5px;
     height:43px;
     /* width:90%; */
 }
