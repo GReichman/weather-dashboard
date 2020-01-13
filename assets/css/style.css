@@ -1,3 +1,8 @@
+body{
+    background-color: blue;
+}
+
+
 #header{
     width:100%;
     height:75px;
@@ -11,12 +16,21 @@
 }
 
 .container{
-    background-color: blue;
+    margin-top:50px;
+    background-color: white;
+    border:1px solid gray;
     
 }
 
 #cityCol{
-    background-color:grey;
+  padding:0px;
+}
+
+#cityHeader{
+    color:white;
+    text-align: center;
+    background-color: black;
+    width:100%;
 }
 
 #currWeatherRow{
@@ -35,3 +49,38 @@
     height:50px;
     width:50px;
 }
+
+#citySearchGroup{
+    height:43px;
+    /* width:90%; */
+}
+
+#city-search{
+    height:65%;
+    background-color:black;
+
+}
+
+
+
+#searchPic{
+    height:100%; 
+    width:45px;
+}
+
+#cityButtonDiv{
+    
+    margin-left:3px;
+    margin-right:3px;
+
+}
+
+.cityButton{
+    background-color: black;
+    color:white;
+    width:100%;
+    margin-bottom: 5px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+

@@ -40,4 +40,8 @@ function createForecastElement(date, temp, humidity,weather){
 
     return mediaElement;
 
+}//createForecastElement
+
+function createCityButton(name){
+
 }

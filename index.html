@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Title</title>
+  <title>Weather Dashboard</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,10 +32,47 @@
   <div class="container">
 
 
-    <div class="row" id="contentRow">
+    <div class="row " id="contentRow">
 
-      <div class="col-4" id="cityCol">
-        cities go here
+      <div class="col-4 " id="cityCol">
+
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <h5 id="cityHeader">Search for a City</h5>
+          </div>
+          <div class="col-10">
+            <div class="input-group mb-3" id="citySearchGroup">
+             <input type="text" class="form-control" placeholder="City Name" aria-label="City Name" aria-describedby="city-search">
+             <div class="input-group-append">
+               <button class="btn btn-outline-secondary" type="button" id="city-search">
+                 <img src="assets/pictures/mag.png" id="searchPic">
+               </button>
+             </div>
+           </div>
+          </div>
+        </div>
+
+
+      <div class="row justify-content-center" id="cityButtonDiv">
+
+        <div class="col-12 cityCols">
+          <button class="btn btn-outline-secondary cityButton">New York</button>
+        </div>
+        <div class="col-12 cityCols">
+          <button class="btn btn-outline-secondary cityButton">Los Angeles</button>
+        </div>
+        <div class="col-12 cityCols">
+          <button class="btn btn-outline-secondary cityButton">Atlanta</button>
+        </div>
+        <div class="col-12 cityCols">
+          <button class="btn btn-outline-secondary cityButton">Atlanta</button>
+        </div>
+        <div class="col-12 cityCols">
+          <button class="btn btn-outline-secondary cityButton">Atlanta</button>
+        </div>
+
+      </div>
+
       </div>
 
       <div class="col-8" id="weatherCol">
