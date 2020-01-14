@@ -19,6 +19,13 @@ $("#cityButtonDiv").on("click","btn",function(){
 
 });
 
+$("#city-search").click(function(){
+
+  
+   addCityButton($(".form-control").val());
+
+});
+
 addCityButton("Atlanta");
 addCityButton("New York");
 addCityButton("Boston");
