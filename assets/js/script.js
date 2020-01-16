@@ -24,9 +24,10 @@ var size=savedButtons.length;
 for(let i=0;i<size;i++){
     addCityButton(savedButtons[i]);
 }//initialize buttons
-
-displayWeather(savedButtons[0]);
-displayForecast(savedButtons[0]);
+console.log("buttons: "+savedButtons);
+locationName = savedButtons[0];
+displayWeather(locationName);
+displayForecast(locationName);
 
 function getSavedButtons(){
     let buttons = JSON.parse(localStorage.getItem("cities"));
@@ -116,7 +117,7 @@ function addCityButton(name) {
 
         $("#cityButtonDiv").prepend(button);
         if(!savedButtons.includes(name)){
-        savedButtons.push(name);
+        savedButtons.unshift(name);
         saveButtons();
         }
 
@@ -147,7 +148,6 @@ function displayCurrentWeather(weather) {
     currTemp.text("Temp: " + weather.main.temp + "°F");
     currHumidity.text("Humidity: " + weather.main.humidity + "%");
     currWind.text("Wind Speed: " + weather.wind.speed + " MPH");
-
 
     $("#currWeather").empty().append(currHeader);
     $("#currWeather").append(currTemp);
