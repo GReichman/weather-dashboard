@@ -1,8 +1,7 @@
 const key = "cc781640716e500eeebae6f7fb4712e2";
 var locationName = "Atlanta";
 var thisMoment = moment().format("L");
-
-
+var savedButtons=[];
 
 
 $("#cityButtonDiv").on("click", "btn", function () {
@@ -19,14 +18,46 @@ $("#city-search").click(function () {
     addCityButton($(".form-control").val());
 
 });
+//localStorage.setItem("cities",null);
+getSavedButtons();
+var size=savedButtons.length;
+for(let i=0;i<size;i++){
+    addCityButton(savedButtons[i]);
+}//initialize buttons
 
-addCityButton("Atlanta");
-addCityButton("New York");
-addCityButton("Boston");
-addCityButton("London");
-var testForecast = createForecastElement("01/12/2020", 68.7, 60, "sunny");
+displayWeather(savedButtons[0]);
+displayForecast(savedButtons[0]);
 
-$("#forecast2").html(testForecast);
+function getSavedButtons(){
+    let buttons = JSON.parse(localStorage.getItem("cities"));
+    console.log(buttons);
+    if(buttons!=null){
+        savedButtons=buttons;
+    }
+
+    else{
+        savedButtons.push("Atlanta");
+        saveButtons();
+    }
+
+}//getSavedButtons
+
+function saveButtons(){
+
+    localStorage.setItem("cities",JSON.stringify(savedButtons));
+
+}//saveButtons
+
+function removeButton(button){
+    //https://stackoverflow.com/questions/9792927/javascript-array-search-and-remove-string
+    
+    var cityName=button.attr("data-city");
+    savedButtons=savedButtons.filter(e => e !== cityName);
+    button.remove();
+    saveButtons();
+
+
+}//removeButton
 
 function displayWeather(locationName) {
     $.ajax({
@@ -35,20 +66,22 @@ function displayWeather(locationName) {
     }).done(function (response) {
         console.log(response);
         displayCurrentWeather(response);
+    }).fail(function(response){
+        console.log("failed");
+        var button = $("btn").first().data("city",locationName);
+        removeButton(button);
+
     });
 
 
-
-
-
-}
+}//displayWeather
 
 function createForecastElement(date, temp, humidity, weather) {
     let mediaElement = $("<div>").addClass("media");
 
     let mediaPic = $("<img>").addClass("mr-3 weatherPictures");
     mediaPic.attr({
-        src: "assets/pictures/" + weather + ".jpg",
+        src: "http://openweathermap.org/img/wn/" + weather + "@2x.png",
         alt: weather
     });
     mediaElement.append(mediaPic);
@@ -57,9 +90,9 @@ function createForecastElement(date, temp, humidity, weather) {
     let mediaHeader = $("<h5>").addClass("mt-0");
     mediaHeader.text(date);
     let mediaTemp = $("<p>").addClass("dayTemp");
-    mediaTemp.text(temp + "F");
+    mediaTemp.text("Temp: "+temp + "°F");
     let mediaHumidity = $("<p>").addClass("dayHumidity");
-    mediaHumidity.text(humidity + "%");
+    mediaHumidity.text("Humidity: "+humidity + "%");
     mediaBody.append([mediaHeader, mediaTemp, mediaHumidity]);
 
     mediaElement.append(mediaBody);
@@ -81,7 +114,12 @@ function createCityButton(name) {
 function addCityButton(name) {
     var button = createCityButton(name);
 
-    $("#cityButtonDiv").prepend(button);
+        $("#cityButtonDiv").prepend(button);
+        if(!savedButtons.includes(name)){
+        savedButtons.push(name);
+        saveButtons();
+        }
+
 
 }//addCityButton
 
@@ -106,7 +144,7 @@ function displayCurrentWeather(weather) {
     currPicture.attr("src", "http://openweathermap.org/img/wn/" + weather.weather[0].icon + "@2x.png");
     currHeader.append(currPicture);
 
-    currTemp.text("Temp: " + weather.main.temp + "F");
+    currTemp.text("Temp: " + weather.main.temp + "°F");
     currHumidity.text("Humidity: " + weather.main.humidity + "%");
     currWind.text("Wind Speed: " + weather.wind.speed + " MPH");
 
@@ -137,8 +175,6 @@ function displayForecast(city) {
         for (var x = 0; x < 5; x++) {
             for (var i = lastIndex; i < response.list.length; i++) {
                 let currForecast = response.list[i];
-                // console.log("target date: " + tomorrow.format("YYYY-MM-DD 12:00:00"));
-                // console.log("Checking: " + currForecast.dt_txt);
                 if (currForecast.dt_txt == tomorrow.format("YYYY-MM-DD 12:00:00")) {
                     forecast.push(currForecast);
                     lastIndex = i;
@@ -149,6 +185,14 @@ function displayForecast(city) {
         }//iterate 5 times
         var forecastElements=createForecast(forecast);
 
+
+        for(let y=0; y<forecastElements.length;y++){
+            let index=y+1;
+            $("#forecast"+index).html(forecastElements[y]);
+
+
+        }
+
     });
 
 
@@ -158,9 +202,19 @@ function displayForecast(city) {
 }//displayForecast
 
 function createForecast(forecast) {
-    var forecastElement=[];
+    var forecastElements=[];
     console.log(forecast)
 
+    for(let i=0; i<forecast.length;i++){
+        let date = forecast[i].dt_txt;
+        date = date.slice(5,10);
+        let temp = forecast[i].main.temp;
+        let humidity = forecast[i].main.humidity;
+        let weatherCode= forecast[i].weather[0].icon;
+
+        forecastElements.push(createForecastElement(date,temp,humidity,weatherCode));
+    }//for each day
 
 
+    return forecastElements;
 }

@@ -1,5 +1,5 @@
 body{
-    background-color: blue;
+    background-color: rgba(112, 105, 105, 0.979);
 }
 
 
@@ -17,8 +17,8 @@ body{
 
 .container{
     margin-top:50px;
-    background-color: white;
-    border:1px solid gray;
+    background-color: blue;
+    border:5px solid black;
     
 }
 
@@ -35,16 +35,25 @@ body{
 }
 
 #currWeatherRow{
-    background-color: red;
+   border:1px solid black;
+   background-color:blue;
+   color:white;
 }
 
 #forecastRow{
-    background-color: magenta;
+    background-color: blue;
+    color:white;
+    border-left:1px solid black;
 }
 
 .forecastDiv{
-    border-right: 1px solid black;
+    border: 1px solid black;
+    border-top:none;
+    border-left:none;
+    margin-top:10px;
 }
+
+
 
 .weatherPictures{
     height:50px;
@@ -54,7 +63,6 @@ body{
 #citySearchGroup{
     margin-top: 5px;
     height:43px;
-    /* width:90%; */
 }
 
 #city-search{
@@ -62,7 +70,6 @@ body{
     background-color:black;
 
 }
-
 
 
 #searchPic{
